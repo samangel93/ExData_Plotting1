@@ -10,6 +10,7 @@ with(plotData4, {
   points(dt, plotData4$Sub_metering_1, col = "black", type = "l")
   points(dt, plotData4$Sub_metering_2, col = "red", type = "l")
   points(dt, plotData4$Sub_metering_3, col = "blue", type = "l")
+  legend("topright", pch = "-", pt.cex = 2:1, col = c("black", "red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), cex = 0.5)
   plot(dt, Global_reactive_power, type = "l", xlab = "datetime", ylab = "Global_reactive_power")
 });
 dev.copy(png, file = "plot4.png", width = 480, height = 480);

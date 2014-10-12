@@ -2,7 +2,7 @@ library(sqldf);
 path = "household_power_consumption.txt";
 plotData3 = read.csv.sql(path, sql = "SELECT * FROM file WHERE Date IN ('1/2/2007', '2/2/2007') ", sep = ";", header = TRUE);
 dt = strptime(paste(plotData3$Date, plotData3$Time), "%m/%d/%Y %H:%M:%S");
-plot(dt, plotData3$Sub_metering_3, type = "n", xlab = "", ylab = "Energy sub metering");
+plot(dt, plotData3$Sub_metering_3*2, type = "n", xlab = "", ylab = "Energy sub metering");
 points(dt, plotData3$Sub_metering_1, col = "black", type = "l");
 points(dt, plotData3$Sub_metering_2, col = "red", type = "l");
 points(dt, plotData3$Sub_metering_3, col = "blue", type = "l");

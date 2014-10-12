@@ -1,0 +1,19 @@
+library(sqldf);
+path = "household_power_consumption.txt";
+plotData4 = read.csv.sql(path, sql = "SELECT * FROM file WHERE Date IN ('1/2/2007', '2/2/2007') ", sep = ";", header = TRUE);
+dt = strptime(paste(plotData4$Date, plotData4$Time), "%m/%d/%Y %H:%M:%S");
+par(mfrow = c(2, 2));
+with(plotData4, {
+  plot(dt, Global_active_power, type = "l", xlab = "", ylab = "Global Active Power")
+  plot(dt, Voltage, type = "l", xlab = "datetime", ylab = "Voltage")
+  plot(dt, plotData4$Sub_metering_1, type = "l", xlab = "", ylab = "Energy sub metering", col = "black")
+  par(new = TRUE)
+  plot(dt, plotData4$Sub_metering_2, type = "l", xlab = "", ylab = "Energy sub metering", col = "red")
+  par(new = TRUE)
+  plot(dt, plotData4$Sub_metering_3, type = "l", xlab = "", ylab = "Energy sub metering", col = "blue")
+  legend("topright", pch = "-", col = c("black", "red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+  par(new = FALSE)
+  plot(dt, Global_reactive_power, type = "l", xlab = "datetime", ylab = "Global_reactive_power")
+});
+dev.copy(png, file = "plot4.png", width = 480, height = 480);
+dev.off();

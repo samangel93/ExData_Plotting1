@@ -1,6 +1,13 @@
 library(sqldf);
 path = "household_power_consumption.txt";
-plotData2 = read.csv.sql(path, sql = "SELECT * FROM file WHERE Date IN ('1/2/2007', '2/2/2007') ", sep = ";", header = TRUE);
-plot(strptime(paste(plotData2$Date, plotData2$Time), "%m/%d/%Y %H:%M:%S"), plotData2$Global_active_power, type = "l", xlab = "", ylab = "Global Active Power (kilowatts)");
+plotData2 = read.csv.sql(path, 
+  sql = "SELECT * FROM file WHERE Date IN ('1/2/2007', '2/2/2007') ", 
+  sep = ";", header = TRUE);
+plotData2$DateTime = as.POSIXct(strptime(paste(plotData2$Date, 
+  plotData2$Time), "%d/%m/%Y %H:%M:%S"));
+
+plot(plotData2$DateTime, plotData2$Global_active_power, type = "l", 
+  xlab = "", ylab = "Global Active Power (kilowatts)");
+
 dev.copy(png, file = "plot2.png", width = 480, height = 480);
 dev.off();
